@@ -13,12 +13,16 @@ export class UserService {
       ...createUserDto,
       password: await bcrypt.hash(createUserDto.password, 10),
     };
-    const veryfyEmail = await this.findByEmail(createUserDto.email);
-    const createdUser = veryfyEmail
-      ? new UnauthorizedException('email already exists')
+
+    console.log(data);
+    const verifyUsername = await this.findByUserName(createUserDto.username);
+    const createdUser = verifyUsername
+      ? new UnauthorizedException('username already exists')
       : await this.prisma.user.create({
           data,
         });
+
+    console.log(createdUser);
 
     return {
       ...createdUser,
@@ -63,10 +67,10 @@ export class UserService {
     return this.prisma.user.delete({ where: { id: id } });
   }
 
-  findByEmail(email: string) {
-    return this.prisma.user.findFirst({
+  findByUserName(username: string) {
+    return this.prisma.user.findUnique({
       where: {
-        email,
+        username,
       },
     });
   }

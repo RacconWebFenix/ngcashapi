@@ -16,8 +16,7 @@ export class AuthService {
   login(user: User): UserToken {
     const payload: UserPayload = {
       sub: user.id,
-      email: user.email,
-      name: user.name,
+      username: user.username,
     };
     const jwtToken = this.jwtService.sign(payload);
 
@@ -26,8 +25,8 @@ export class AuthService {
     };
   }
 
-  async validateUser(email: string, password: string) {
-    const user = await this.userService.findByEmail(email);
+  async validateUser(username: string, password: string) {
+    const user = await this.userService.findByUserName(username);
 
     if (user) {
       const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -40,6 +39,6 @@ export class AuthService {
       }
     }
 
-    throw new Error('Email addresses / password provided is incorrect');
+    throw new Error('User name / password provided is incorrect');
   }
 }

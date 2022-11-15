@@ -1,6 +1,9 @@
 import { User } from '../entities/user.entity';
 import {
   IsEmail,
+  IsInt,
+  IsOptional,
+  isString,
   IsString,
   Matches,
   MaxLength,
@@ -8,9 +11,8 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto extends User {
-  @IsEmail()
-  email: string;
-
+  @IsString()
+  username: string;
   @IsString()
   @MinLength(8)
   @MaxLength(20)
@@ -18,9 +20,5 @@ export class CreateUserDto extends User {
     message: 'password too weak',
   })
   password: string;
-
-  @IsString()
-  name: string;
-
 
 }

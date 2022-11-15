@@ -11,27 +11,23 @@ datasource db {
 }
 
 model User {
-  id        Int     @id @default(autoincrement())
-  email     String  @unique
-  name      String
-  password  String
-  account   Account? @relation(fields: [accountId], references: [id])
-  accountId Int?     @unique
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
 }
 
-model Account {
-  id          Int           @id @default(autoincrement())
-  balance     Decimal
-  User        User?
-  Transaction Transaction[]
-}
+// model Account {
+//   id          Int           @id @default(autoincrement())
+//   balance     Decimal
+//   Transaction Transaction[]
+// }
 
-model Transaction {
-  debitedAccountId  Int
-  creditedAccountId Int
-  id                Int      @id @default(autoincrement())
-  value             Decimal
-  createdAt         DateTime
-  accountId         Int?
-  Account           Account? @relation(fields: [accountId], references: [id])
-}
+// model Transaction {
+//   debitedAccountId  Int
+//   creditedAccountId Int
+//   id                Int      @id @default(autoincrement())
+//   value             Decimal
+//   createdAt         DateTime
+//   accountId         Int?
+//   Account           Account? @relation(fields: [accountId], references: [id])
+// }

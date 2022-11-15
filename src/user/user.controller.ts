@@ -42,7 +42,7 @@ export class UserController {
     return this.userService.remove(id);
   }
 
-  findByEmail(@Param('email') email: string) {
-    return this.userService.findByEmail(email);
+  findByUserName(@Param('username') username: string) {
+    return this.userService.findByUserName(username);
   }
 }
