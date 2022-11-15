@@ -21,4 +21,6 @@ export class CreateUserDto extends User {
   })
   password: string;
 
+  @IsInt()
+  accountId: number;
 }

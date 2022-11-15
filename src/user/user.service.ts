@@ -14,12 +14,18 @@ export class UserService {
       password: await bcrypt.hash(createUserDto.password, 10),
     };
 
-    console.log(data);
     const verifyUsername = await this.findByUserName(createUserDto.username);
     const createdUser = verifyUsername
       ? new UnauthorizedException('username already exists')
       : await this.prisma.user.create({
-          data,
+          data: data,
+          include: {
+            account: {
+              select: {
+                id: true,
+              },
+            },
+          },
         });
 
     console.log(createdUser);
