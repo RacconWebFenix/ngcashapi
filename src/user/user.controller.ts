@@ -45,4 +45,5 @@ export class UserController {
   findByUserName(@Param('username') username: string) {
     return this.userService.findByUserName(username);
   }
+
 }

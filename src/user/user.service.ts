@@ -15,6 +15,7 @@ export class UserService {
     };
 
     const verifyUsername = await this.findByUserName(createUserDto.username);
+
     const createdUser = verifyUsername
       ? new UnauthorizedException('username already exists')
       : await this.prisma.user.create({
@@ -23,6 +24,7 @@ export class UserService {
             account: {
               select: {
                 id: true,
+                balance: true,
               },
             },
           },
